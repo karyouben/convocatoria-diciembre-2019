@@ -3,7 +3,6 @@ package fp.vivienda.test;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashMap;
 
 import fp.vivienda.Catalogo;
 import fp.vivienda.FactoriaCatalogo;
@@ -30,7 +29,7 @@ public class TestCatalogo {
 		testGetViviendaMasBarataPorTipoEnCapital(v);
 		System.out.println("\nTestGetPorcViviendasPreciosMayorUmbralPorDistrito");
 		System.out.println("======================================");
-		testGetPorcViviendasPreciosMayorUmbralPorDistrito(v,30.5);
+		testGetPorcViviendasPreciosMayorUmbralPorDistrito(v,0.1);
 
 	}
 
@@ -82,12 +81,11 @@ public class TestCatalogo {
 		
 	}
 	
-
 	private static void testGetPorcViviendasPreciosMayorUmbralPorDistrito(Catalogo v, Double umbralPrecio) {
 		try {
-			String msg=String.format("El porcentaje de viviendas precio mayor umbral de %d por distrito es: ");
+			String msg=String.format("El porcentaje de viviendas precio mayor umbral de "+umbralPrecio+" por distrito es: ");
 			System.out.println(msg);
-			Map<String,Double> p=v.getPorcViviendasPreciosMayorUmbralPorDistrito();
+			Map<String,Double> p=v.getPorcViviendasPreciosMayorUmbralPorDistrito(umbralPrecio);
 			p.entrySet().stream().forEach(System.out::println);
 		}catch(Exception e) {
 			System.err.println("Excepcion inesesperada capturada " +e.getMessage());

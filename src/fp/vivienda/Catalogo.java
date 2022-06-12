@@ -97,8 +97,22 @@ public class Catalogo {
 	}
 	
 	public Map<String,Double> getPorcViviendasPreciosMayorUmbralPorDistrito(Double umbralPrecio){
+		Map<String,List<Double>> m= viviendas.stream()
+				.collect(Collectors.groupingBy(Vivienda::distrito,Collectors.mapping(v->v.PMetroCuadrado(), Collectors.toList())));
+		return m.entrySet().stream()
+				.collect(Collectors.toMap(v->v.getKey(), e->porcentajePorEncima(e.getValue(),umbralPrecio)));
 		
 	}
+	
+	private Double porcentajePorEncima(List<Double> precios,Double umbralPrecio) {
+		Integer total=precios.size();
+		Long numPorEncima=precios.stream()
+				.filter(v-> v>umbralPrecio)
+				.count();
+		return numPorEncima*100.0/total;
+	}
+	
+	
 	
 	
 
